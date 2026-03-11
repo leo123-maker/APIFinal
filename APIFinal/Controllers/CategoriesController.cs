@@ -33,6 +33,48 @@ namespace APIFinal.Controllers
             return Ok(categoriesDto);
         }
 
+        [HttpGet("{id:int}", Name = "GetCategory")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetCategories(int id)
+        {
+            var category = _categoryRepository.GetCategory(id);
+            if(category == null)
+            {
+                return NotFound($"La categoria con el id {id} no existe");
+            }
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+            
+            return Ok(categoryDto);
+        }
+
+         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult CreateCategory([FromBody] CreatecategoruSto createcategoruSto)
+        {
+            if(createcategoruSto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (_categoryRepository.CategoryExists(createcategoruSto.Name))
+            {
+                ModelState.AddModelError("CustomError","La categoria ya existe");
+                return BadRequest(ModelState);
+            }
+            var category = _mapper.Map<Category>(createcategoruSto);
+            if (!_categoryRepository.CreateCategory(category))
+            {
+                ModelState.AddModelError("CustomError",$"Algo salio mal al guardar el registro {category.Name}");
+                return StatusCode(500,ModelState);
+            }
+            return CreatedAtRoute("GetCategory",new {id = category.Id}, category);
+        }
     }
 
 }

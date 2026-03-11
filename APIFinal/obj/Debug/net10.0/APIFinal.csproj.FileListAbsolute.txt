@@ -160,3 +160,4 @@ C:\Proyectos\DotNet\APIFinal\APIFinal\bin\Debug\net10.0\AutoMapper.dll
 C:\Proyectos\DotNet\APIFinal\APIFinal\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Proyectos\DotNet\APIFinal\APIFinal\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Proyectos\DotNet\APIFinal\APIFinal\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Proyectos\DotNet\APIFinal\APIFinal\obj\Debug\net10.0\APIFinal.sourcelink.json
