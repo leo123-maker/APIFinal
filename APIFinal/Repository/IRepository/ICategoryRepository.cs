@@ -10,6 +10,8 @@ public interface ICategoryRepository
 
     bool CategoryExists(string name);
 
+    bool CategoryExists(int id);
+
     bool CreateCategory(Category category);
 
      bool UpdateCategory(Category category);
